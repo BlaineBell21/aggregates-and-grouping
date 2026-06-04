@@ -9,7 +9,7 @@ public class Main {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl("jdbc:mysql://localhost:3307/northwind");
         dataSource.setUsername("root");
-        dataSource.setPassword("Neurospicy1!");
+        dataSource.setPassword("password");
 
         // Query the database now
         String sql = "SELECT ProductName, UnitPrice, UnitsInStock  FROM products";
