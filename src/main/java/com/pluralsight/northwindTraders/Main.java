@@ -11,7 +11,7 @@ public class Main {
         dataSource.setUsername("root");
         dataSource.setPassword("password");
 
-        // Query the database noew
+        // Query the database now
         String sql = "SELECT ProductName, UnitPrice FROM products";
 
         try (Connection conn = dataSource.getConnection();
