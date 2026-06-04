@@ -7,12 +7,12 @@ public class Main {
     public static void main(String[] args) {
         // Setup DataSource
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+        dataSource.setUrl("jdbc:mysql://localhost:3307/northwind");
         dataSource.setUsername("root");
-        dataSource.setPassword("password");
+        dataSource.setPassword("Neurospicy1!");
 
         // Query the database now
-        String sql = "SELECT ProductName, UnitPrice FROM products";
+        String sql = "SELECT ProductName, UnitPrice, UnitsInStock  FROM products";
 
         try (Connection conn = dataSource.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -21,7 +21,8 @@ public class Main {
             while (rs.next()) {
                 String name = rs.getString("ProductName");
                 double price = rs.getDouble("UnitPrice");
-                System.out.printf("%s: $%.2f%n", name, price);
+                int units = rs.getInt("UnitsInStock");
+                System.out.printf("%s: $%.2f%n %d ", name, price, units);
             }
         } catch (SQLException e) {
             e.printStackTrace();
