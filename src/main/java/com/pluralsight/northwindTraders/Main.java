@@ -1,7 +1,30 @@
 package com.pluralsight.northwindTraders;
 
-public class Main {
-    public static void main(String[]args){
+import org.apache.commons.dbcp2.BasicDataSource;
+import java.sql.*;
 
+public class Main {
+    public static void main(String[] args) {
+        // Setup DataSource
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost:3306/northwind");
+        dataSource.setUsername("root");
+        dataSource.setPassword("password");
+
+        // Query the database
+        String sql = "SELECT ProductName, UnitPrice FROM products";
+
+        try (Connection conn = dataSource.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String name = rs.getString("ProductName");
+                double price = rs.getDouble("UnitPrice");
+                System.out.printf("%s: $%.2f%n", name, price);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
